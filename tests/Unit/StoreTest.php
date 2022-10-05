@@ -23,12 +23,12 @@ class StoreTest extends TestCase
         $this->createProducts();
     }
 
-    public function testsGettingProducts()
+    public function testGettingProducts()
     {
         $this->assertCount(4, $this->productController->getProducts());
     }
 
-    public function testsAddingItemToBasket()
+    public function testAddingItemToBasket()
     {
         $user = $this->getUser();
         $basket = new Basket([], $user->id);
@@ -39,7 +39,7 @@ class StoreTest extends TestCase
         $this->assertCount(1, $store->getBasketItems());
     }
 
-    public function testsGettingBasketTotal()
+    public function testGettingBasketTotal()
     {
         $user = $this->getUser();
         $basket = new Basket([], $user->id);
@@ -54,7 +54,7 @@ class StoreTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testsApplyingDiscountToBasketFailure()
+    public function testApplyingDiscountToBasketFailure()
     {
         $this->expectExceptionMessage('Sorry, this discount is not available.');
 
@@ -68,7 +68,7 @@ class StoreTest extends TestCase
         $store->applyDiscountToBasket('10OFF');
     }
 
-    public function testsApplyingDiscountToBasketSuccess()
+    public function testApplyingDiscountToBasketSuccess()
     {
         $user = $this->getUser(true);
         $basket = new Basket([], $user->id);
