@@ -82,6 +82,18 @@ class StoreTest extends TestCase
         $this->assertEquals(255.15, $store->getBasketTotal());
     }
 
+    public function testAddingDuplicateItemsToBasket()
+    {
+        $this->expectExceptionMessage('You can only have one of any given item in your basket.');
+
+        $user = $this->getUser();
+        $basket = new Basket([], $user->id);
+        $store = new StoreController($basket, $user);
+        $products = $this->productController->getProducts();
+        $store->addItemToBasket($products[0]);
+        $store->addItemToBasket($products[0]);
+    }
+
     private function getUser($hasContract = false): User
     {
         $userDetails = [

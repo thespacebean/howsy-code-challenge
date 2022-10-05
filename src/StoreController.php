@@ -20,7 +20,10 @@ class StoreController {
 
     public function addItemToBasket(Item $item)
     {
-        $this->basket->addItem($item);
+        if($this->checkForDuplicateItems($item))
+        {
+            $this->basket->addItem($item);
+        }
     }
 
     public function getBasketItems(): array
@@ -48,6 +51,15 @@ class StoreController {
         }
         
         throw new \Exception('Sorry, this discount is not available.');
+    }
+
+    private function checkForDuplicateItems($item)
+    {
+        if(in_array($item, $this->basket->items)) {
+            throw new \Exception('You can only have one of any given item in your basket.');
+        }
+
+        return true;
 
     }
 
